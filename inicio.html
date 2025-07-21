@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librería El Aprendiz - Tu lugar de aprendizaje</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f6f0;
+        }
+
+        /* Encabezado */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Menú de navegación */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .view-more-btn {
+            display: none !important;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #ecf0f1;
+        }
+
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23d4a574" width="1200" height="400"/><g fill="%23b8956a"><circle cx="200" cy="100" r="30"/><circle cx="800" cy="150" r="25"/><circle cx="1000" cy="80" r="35"/><rect x="100" y="200" width="80" height="120" rx="5"/><rect x="300" y="180" width="70" height="140" rx="5"/><rect x="500" y="190" width="75" height="130" rx="5"/><rect x="700" y="170" width="85" height="150" rx="5"/><rect x="900" y="185" width="78" height="135" rx="5"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        /* Contenido principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        /* Grid de productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .product-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Llamada a la acción */
+        .cta {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+            border-radius: 15px;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #f39c12;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Información de contacto */
+        .contact {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Equipo */
+        .team {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-member {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .team-member h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contribution {
+            font-style: italic;
+            color: #e74c3c;
+            font-weight: 500;
+        }
+
+        /* Pie de página */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #ecf0f1;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #ecf0f1;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #e74c3c;
+        }
+
+        /* Diseño responsivo */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 2rem 0;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                padding: 2rem 1rem;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .product-card, .contact, .team {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Formulario de contacto */
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">📚</div>
+                <h1>Librería El Aprendiz</h1>
+            </div>
+            <!-- Menú de navegación -->
+            <nav>
+                <ul>
+                    <li><a href="inicio">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="matricez.html">Matrices</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h2>Descubre el Mundo del aprendizaje</h2>
+            <p>Tu librería de confianza con la mejor selección de libros, material educativo y servicios especializados para estudiantes, profesionales y amantes de la lectura.</p>
+            <a href="productos.html" class="btn">Explorar Catálogo</a>
+        </div>
+    </section>
+
+    <!-- Contenido relevante -->
+    <main class="container">
+        <section id="productos" class="section fade-in">
+            <h2>Nuestros Productos</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">📖</div>
+                    <h3>Libros Académicos</h3>
+                    <p>Amplia colección de textos universitarios, manuales de referencia y material de estudio especializado para todas las carreras.</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">✏️</div>
+                    <h3>Material Escolar</h3>
+                    <p>Todo lo que necesitas para el estudio: cuadernos, útiles de escritura, calculadoras y material de oficina de calidad.</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">💻</div>
+                    <h3>Recursos Digitales</h3>
+                    <p>Acceso a libros electrónicos, software educativo y plataformas de aprendizaje online para complementar tu formación.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="section fade-in">
+            <h2>Servicios Especializados</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">🖨️</div>
+                    <h3>Impresión y Encuadernación</h3>
+                    <p>Servicios profesionales de impresión, fotocopiado y encuadernación para tesis, trabajos y documentos importantes.</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">🎓</div>
+                    <h3>Asesoría Académica</h3>
+                    <p>Orientación personalizada para la selección de material de estudio y recursos bibliográficos específicos.</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">📦</div>
+                    <h3>Pedidos Especiales</h3>
+                    <p>Importación de libros y material especializado que no esté disponible en nuestro inventario local.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Llamada a la acción -->
+        <section class="cta fade-in">
+            <h2>¡Visítanos Hoy Mismo!</h2>
+            <p>Descubre nuestras ofertas especiales y descuentos exclusivos para estudiantes. Tu educación es nuestra prioridad.</p>
+            <a href="#contacto" class="btn">Contáctanos Ahora</a>
+        </section>
+
+        <!-- Información de contacto -->
+        <section id="contacto" class="contact fade-in">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 2rem;">Información de Contacto</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                   
+                    <h3>Ubicación</h3>
+                    <p>Avenida Universidad 123<br>Villa Nueva, Guatemala</p>
+                </div>
+                <div class="contact-item">
+                  
+                    <h3>Teléfono</h3>
+                    <p>(502) 2234-5678<br>WhatsApp: 5555-1234</p>
+                </div>
+                <div class="contact-item">
+                   
+                    <h3>Email</h3>
+                    <p>info@libreriaelaprendiz.com<br>ventas@libreriaelaprendiz.com</p>
+                </div>
+                <div class="contact-item">
+                  
+                    <h3>Horarios</h3>
+                    <p>Lunes a Viernes: 8:00 - 18:00<br>Sábados: 8:00 - 16:00</p>
+                </div>
+            </div>
+
+            <!-- Formulario de contacto -->
+            <form class="contact-form" id="contactForm">
+                <h3 style="text-align: center; color: #2c3e50; margin-bottom: 2rem;">Envíanos un Mensaje</h3>
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="asunto">Asunto:</label>
+                    <input type="text" id="asunto" name="asunto" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn">Enviar Mensaje</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Equipo de trabajo -->
+        <section id="equipo" class="team fade-in">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 2rem;">Nuestro Equipo de Desarrollo</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h4>Mario David Hernandez Quijano (Gerente)</h4>
+                    <p>Carné: [2023507]</p>
+                    <p class="contribution">Contribución: Desarrollo de funcionalidades JavaScript y validación de formularios</p>
+                </div>
+                <div class="team-member">
+                    <h4>Diego Gabriel Juarez Castellanos</h4>
+                    <p>Carné: [2023569]</p>
+                    <p class="contribution">Contribución: Diseño y desarrollo del encabezado y menú de navegación responsivo</p>
+                </div>
+                <div class="team-member">
+                    <h4>Antóny Sebastián Pérez Liquez</h4>
+                    <p>Carné: [2023350]</p>
+                    <p class="contribution">Contribución: Desarrollo del contenido principal y sección de productos</p>
+                </div>
+                <div class="team-member">
+                    <h4>Josse Miguel Tzubán Toyom</h4>
+                    <p>Carné: [2023425]</p>
+                    <p class="contribution">Contribución: Implementación de la llamada a la acción y sistema de botones interactivos</p>
+                </div>
+                <div class="team-member">
+                    <h4>Marcos Adrián Barillas López</h4>
+                    <p>Carné: [2023178]</p>
+                    <p class="contribution">Contribución: Desarrollo de la sección de contacto y formulario interactivo</p>
+                </div>
+                <div class="team-member">
+                    <h4>Fabián Alberto Pérez Alvarado</h4>
+                    <p>Carné: [2023519]</p>
+                    <p class="contribution">Contribución: Implementación del diseño responsivo y optimización móvil</p>
+                </div>
+                <div class="team-member">
+                    <h4>Fabricio José Granados Ramos</h4>
+                    <p>Carné: [2023133]</p>
+                    <p class="contribution">Contribución: Desarrollo del pie de página y redes sociales</p>
+                </div>
+                <div class="team-member">
+                    <h4>Rodrigo Alexander Fonseca Córdova</h4>
+                    <p>Carné: [2023504]</p>
+                    <p class="contribution">Contribución: Implementación de animaciones CSS y efectos visuales</p>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Librería El Aprendiz</h3>
+                    <p>Tu socio educativo de confianza desde 2024. Comprometidos con la excelencia académica y el crecimiento intelectual de nuestra comunidad.</p>
+                    <div class="social-icons">
+                        
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <p><a href="#inicio">Inicio</a></p>
+                    <p><a href="#productos">Productos</a></p>
+                    <p><a href="#servicios">Servicios</a></p>
+                    <p><a href="#contacto">Contacto</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <p>Venta de libros académicos</p>
+                    <p>Material escolar y oficina</p>
+                    <p>Impresión y encuadernación</p>
+                    <p>Asesoría académica</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>📍 Av. Universidad 123, Villa Nueva</p>
+                    <p>📞 (502) 2234-5678</p>
+                    <p>✉️ info@libreriaelaprendiz.com</p>
+                    <p>🕒 Lunes a Sábado</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #34495e; padding-top: 2rem; margin-top: 2rem; text-align: center;">
+                <p>&copy; 2025 Librería El Aprendiz. Todos los derechos reservados. | Desarrollado por el Equipo PYME Innovación</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript para funcionalidades interactivas
+        
+        // Animaciones de scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scrolling para enlaces de navegación
+        function initSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Validación y manejo del formulario de contacto
+        function initContactForm() {
+            const form = document.getElementById('contactForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener valores del formulario
+                const nombre = document.getElementById('nombre').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const asunto = document.getElementById('asunto').value.trim();
+                const mensaje = document.getElementById('mensaje').value.trim();
+                
+                // Validaciones básicas
+                if (!nombre || !email || !asunto || !mensaje) {
+                    alert('Por favor, completa todos los campos del formulario.');
+                    return;
+                }
+                
+                // Validación de email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Por favor, ingresa un correo electrónico válido.');
+                    return;
+                }
+                
+                // Simulación de envío exitoso
+                alert(`¡Gracias ${nombre}! Tu mensaje ha sido enviado exitosamente. Nos pondremos en contacto contigo pronto.`);
+                
+                // Limpiar formulario
+                form.reset();
+            });
+        }
+
+        // Efectos hover dinámicos para las tarjetas
+        function initCardEffects() {
+            const cards = document.querySelectorAll('.product-card, .team-member');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Destacar sección activa en el menú
+        function initActiveMenuHighlight() {
+            const sections = document.querySelectorAll('section[id]');
+            const menuLinks = document.querySelectorAll('nav a[href^="#"]');
+            
+            function highlightActiveSection() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop <= 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightActiveSection);
+        }
+
+        // Contador animado para estadísticas (funcionalidad extra)
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Funcionalidad de búsqueda (simulada)
+        function initSearch() {
+            const searchBtn = document.querySelector('.search-btn');
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    alert('Funcionalidad de búsqueda en desarrollo. ¡Próximamente disponible!');
+                });
+            }
+        }
+
+        // Sistema de notificaciones
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#27ae60' : '#e74c3c'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 5px;
+                z-index: 1000;
+                transform: translateX(300px);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(300px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Modo oscuro/claro (funcionalidad adicional)
+        function initThemeToggle() {
+            const themeToggle = document.createElement('button');
+            themeToggle.innerHTML = '🌙';
+            themeToggle.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: none;
+                background: #e74c3c;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            `;
+            
+            let isDark = false;
+            
+            themeToggle.addEventListener('click', function() {
+                isDark = !isDark;
+                document.body.style.filter = isDark ? 'invert(1) hue-rotate(180deg)' : 'none';
+                this.innerHTML = isDark ? '☀️' : '🌙';
+                
+                // Excluir imágenes y ciertos elementos del filtro
+                const images = document.querySelectorAll('img, .logo-icon, .product-icon, .contact-icon, .social-icon');
+                images.forEach(img => {
+                    img.style.filter = isDark ? 'invert(1) hue-rotate(180deg)' : 'none';
+                });
+            });
+            
+            document.body.appendChild(themeToggle);
+        }
+
+        // Lazy loading para imágenes (si las hubiera)
+        function initLazyLoading() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Estadísticas del sitio
+        function initSiteStats() {
+            const stats = {
+                visitors: 0,
+                pageViews: 0,
+                timeOnSite: 0
+            };
+            
+            // Simular estadísticas
+            stats.visitors = Math.floor(Math.random() * 1000) + 500;
+            stats.pageViews = stats.visitors + Math.floor(Math.random() * 500);
+            
+            // Tiempo en el sitio
+            const startTime = Date.now();
+            setInterval(() => {
+                stats.timeOnSite = Math.floor((Date.now() - startTime) / 1000);
+            }, 1000);
+        }
+
+        // Efectos de partículas para el hero (opcional)
+        function createParticles() {
+            const hero = document.querySelector('.hero');
+            const particlesContainer = document.createElement('div');
+            particlesContainer.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                overflow: hidden;
+            `;
+            
+            hero.style.position = 'relative';
+            hero.appendChild(particlesContainer);
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(255,255,255,0.5);
+                    border-radius: 50%;
+                    animation: float ${Math.random() * 3 + 2}s ease-in-out infinite;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 2}s;
+                `;
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Agregar animación CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(180deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Inicialización de todas las funcionalidades
+        document.addEventListener('DOMContentLoaded', function() {
+            // Funcionalidades principales
+            initSmoothScrolling();
+            initContactForm();
+            initCardEffects();
+            initActiveMenuHighlight();
+            initSearch();
+            initSiteStats();
+            
+            // Funcionalidades adicionales
+            initThemeToggle();
+            initLazyLoading();
+            createParticles();
+            
+            // Event listeners
+            window.addEventListener('scroll', animateOnScroll);
+            window.addEventListener('load', animateCounters);
+            
+            // Mostrar notificación de bienvenida
+            setTimeout(() => {
+                showNotification('¡Bienvenido a Librería El Aprendiz! 📚');
+            }, 1000);
+            
+            // Inicializar animaciones
+            animateOnScroll();
+        });
+
+        // Funcionalidad adicional: Sistema de favoritos
+        class FavoriteSystem {
+            constructor() {
+                this.favorites = [];
+                this.init();
+            }
+            
+            init() {
+                this.addFavoriteButtons();
+                this.loadFavorites();
+            }
+            
+            addFavoriteButtons() {
+                const productCards = document.querySelectorAll('.product-card');
+                productCards.forEach((card, index) => {
+                    const favoriteBtn = document.createElement('button');
+                    favoriteBtn.innerHTML = '💖';
+                    favoriteBtn.className = 'favorite-btn';
+                    favoriteBtn.style.cssText = `
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        background: none;
+                        border: none;
+                        font-size: 1.5rem;
+                        cursor: pointer;
+                        opacity: 0.6;
+                        transition: opacity 0.3s ease;
+                    `;
+                    
+                    favoriteBtn.addEventListener('click', () => this.toggleFavorite(index));
+                    card.style.position = 'relative';
+                    card.appendChild(favoriteBtn);
+                });
+            }
+            
+            toggleFavorite(index) {
+                if (this.favorites.includes(index)) {
+                    this.favorites = this.favorites.filter(fav => fav !== index);
+                    showNotification('Eliminado de favoritos', 'info');
+                } else {
+                    this.favorites.push(index);
+                    showNotification('Agregado a favoritos', 'success');
+                }
+                this.updateFavoriteButtons();
+            }
+            
+            updateFavoriteButtons() {
+                const buttons = document.querySelectorAll('.favorite-btn');
+                buttons.forEach((btn, index) => {
+                    btn.style.opacity = this.favorites.includes(index) ? '1' : '0.6';
+                });
+            }
+            
+            loadFavorites() {
+                // En un entorno real, esto cargaría desde localStorage
+                this.updateFavoriteButtons();
+            }
+        }
+
+        // Clase para manejar navegación de productos
+        class ProductNavigation {
+            constructor() {
+                this.productLinks = {
+                    0: 'productos.html',  // Libros Académicos
+                    1: '#servicios',  // Material Escolar  
+                    2: '#contacto',   // Recursos Digitales
+                    3: '#servicios',  // Impresión y Encuadernación
+                    4: '#contacto',   // Asesoría Académica
+                    5: '#contacto'    // Pedidos Especiales
+                };
+                this.init();
+            }
+            
+            init() {
+                this.addViewMoreButtons();
+            }
+            
+            addViewMoreButtons() {
+                const productCards = document.querySelectorAll('.product-card');
+                const productNames = [
+                    'Libros Académicos',
+                    'Material Escolar',
+                    'Recursos Digitales',
+                    'Impresión y Encuadernación',
+                    'Asesoría Académica',
+                    'Pedidos Especiales'
+                ];
+                
+                productCards.forEach((card, index) => {
+                    const viewBtn = document.createElement('a');
+                    viewBtn.textContent = 'Ver Más';
+                    viewBtn.className = 'btn view-more-btn';
+                    viewBtn.style.cssText = 'margin-top: 1rem; display: inline-block; text-decoration: none;';
+                    viewBtn.href = this.productLinks[index] || '#contacto';
+                    viewBtn.setAttribute('data-product-index', index);
+                    
+                    viewBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.handleViewMore(index, productNames[index]);
+                    });
+                    
+                    card.appendChild(viewBtn);
+                });
+            }
+            
+            handleViewMore(index, productName) {
+                const targetLink = this.productLinks[index] || '#contacto';
+                
+                showNotification(`Explorando: ${productName}`, 'success');
+                
+                // Navegar al enlace después de un breve delay
+                setTimeout(() => {
+                    const targetElement = document.querySelector(targetLink);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }, 500);
+            }
+            
+            // Método público para cambiar enlaces
+            changeLink(productIndex, newLink, productName = null) {
+                if (typeof productIndex === 'number' && productIndex >= 0 && productIndex <= 5) {
+                    this.productLinks[productIndex] = newLink;
+                    
+                    // Actualizar el href del botón
+                    const button = document.querySelector(`[data-product-index="${productIndex}"]`);
+                    if (button) {
+                        button.href = newLink;
+                    }
+                    
+                    const name = productName || `Producto ${productIndex + 1}`;
+                    console.log(`✅ Enlace actualizado para "${name}" → ${newLink}`);
+                    showNotification(`Enlace actualizado para: ${name}`, 'success');
+                } else {
+                    console.error('❌ Índice de producto inválido. Debe ser entre 0 y 5.');
+                }
+            }
+            
+            // Método para obtener enlaces actuales
+            getLinks() {
+                return { ...this.productLinks };
+            }
+            
+            // Método para resetear enlaces a valores por defecto
+            resetLinks() {
+                this.productLinks = {
+                    0: '#productos',
+                    1: '#servicios', 
+                    2: '#contacto',
+                    3: '#servicios',
+                    4: '#contacto',
+                    5: '#contacto'
+                };
+                
+                // Actualizar todos los botones
+                Object.keys(this.productLinks).forEach(index => {
+                    const button = document.querySelector(`[data-product-index="${index}"]`);
+                    if (button) {
+                        button.href = this.productLinks[index];
+                    }
+                });
+                
+                showNotification('Enlaces restablecidos a valores por defecto', 'info');
+            }
+        }
+
+        // Inicializar sistemas adicionales
+        let favoriteSystem, productNavigation;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esperar un poco antes de inicializar sistemas adicionales
+            setTimeout(() => {
+                favoriteSystem = new FavoriteSystem();
+                productNavigation = new ProductNavigation();
+                
+                // Hacer disponible globalmente para facilitar cambios
+                window.productNav = productNavigation;
+            }, 500);
+        });
+
+        // Función de utilidad para cambiar enlaces fácilmente
+        function cambiarEnlaceProducto(indice, nuevoEnlace, nombreProducto) {
+            if (window.productNav) {
+                window.productNav.changeLink(indice, nuevoEnlace, nombreProducto);
+            } else {
+                console.error('Sistema de navegación no inicializado aún.');
+            }
+        }
+
+        // Agregar funciones de ayuda al objeto window para uso en consola
+        window.ayudaEnlaces = function() {
+            console.log(`
+
+            `);
+        };
+
+        // Sistema de comentarios y reseñas (simulado)
+        function initReviewSystem() {
+            const reviewSection = document.createElement('section');
+            reviewSection.className = 'section fade-in';
+            reviewSection.innerHTML = `
+                <div class="container">
+                    <h2>Lo Que Dicen Nuestros Clientes</h2>
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-icon">⭐</div>
+                            <h3>María González</h3>
+                            <p>"Excelente servicio y gran variedad de libros. El personal es muy amable y conocedor."</p>
+                            <small>★★★★★ 5/5</small>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-icon">⭐</div>
+                            <h3>Carlos Rodríguez</h3>
+                            <p>"Encontré todos los libros que necesitaba para mi carrera. Precios muy competitivos."</p>
+                            <small>★★★★★ 5/5</small>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-icon">⭐</div>
+                            <h3>Ana Martínez</h3>
+                            <p>"El servicio de impresión es rápido y de calidad. Muy recomendado para estudiantes."</p>
+                            <small>★★★★☆ 4/5</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Insertar antes de la sección de contacto
+            const contactSection = document.getElementById('contacto');
+            contactSection.parentNode.insertBefore(reviewSection, contactSection);
+        }
+
+        // Agregar sección de reseñas al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initReviewSystem, 100);
+        });
+
+        console.log('🎉 Librería El Conocimiento - Sistema Web Cargado Exitosamente');
+        console.log('👥 Desarrollado por el Equipo PYME Innovación 2025');
+    </script>
+</body>
+</html>

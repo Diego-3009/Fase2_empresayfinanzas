@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrices de Gestión - Librería El Aprendiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f6f0;
+        }
+
+        /* Encabezado */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #ecf0f1;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23d4a574" width="1200" height="400"/><g fill="%23b8956a"><circle cx="200" cy="100" r="30"/><circle cx="800" cy="150" r="25"/><circle cx="1000" cy="80" r="35"/><rect x="100" y="200" width="80" height="120" rx="5"/><rect x="300" y="180" width="70" height="140" rx="5"/><rect x="500" y="190" width="75" height="130" rx="5"/><rect x="700" y="170" width="85" height="150" rx="5"/><rect x="900" y="185" width="78" height="135" rx="5"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        /* Contenido principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .section-description {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Tarjetas de matrices */
+        .matrix-card {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .matrix-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .matrix-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .matrix-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .matrix-info h3 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .matrix-info p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Contenedor de imagen - NUEVA SECCIÓN */
+        .matrix-image-container {
+            background: white;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+            /* Prevenir selección y edición */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+        }
+
+        .matrix-image-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #bdc3c7;
+            border-radius: 10px;
+            padding: 3rem;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .matrix-image-title {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Protección contra clic derecho y selección */
+        .protected {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+
+        /* Información adicional */
+        .info-box {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .info-box h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .info-box p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Pie de página */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Diseño responsivo */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 2rem 0;
+            }
+
+            .matrix-card {
+                padding: 2rem;
+            }
+
+            .matrix-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .matrix-image-container {
+                padding: 15px;
+            }
+
+            .matrix-image-placeholder {
+                padding: 2rem;
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .matrix-card {
+                padding: 1.5rem;
+            }
+
+            .matrix-image-container {
+                padding: 10px;
+            }
+
+            .matrix-image-placeholder {
+                padding: 1.5rem;
+                min-height: 200px;
+            }
+        }
+
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Indicadores visuales */
+        .matrix-status {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: #95a5a6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .matrix-status.ready {
+            background: #27ae60;
+        }
+
+        .matrix-tips {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .matrix-tips h5 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .matrix-tips ul {
+            margin-left: 1.5rem;
+            color: #856404;
+        }
+
+        /* Overlay para prevenir interacción */
+        .no-interaction::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="protected">
+    <!-- Encabezado -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>Matrices de Gestión</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="inicio.html">Inicio</a></li>
+                    <li><a href="#flujo">Diagrama de Flujo</a></li>
+                    <li><a href="#gantt">Diagrama de Gantt</a></li>
+                    <li><a href="#lean">Lean Canvas</a></li>
+                    <li><a href="#eisenhower">Matriz Eisenhower</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h2>Herramientas de Gestión Empresarial</h2>
+            <p>Organiza, planifica y optimiza tus procesos con estas cuatro matrices fundamentales para la gestión eficiente de proyectos y negocios.</p>
+        </div>
+    </section>
+
+    <!-- Contenido principal -->
+    <main class="container">
+        <!-- Información general -->
+        <div class="info-box fade-in">
+            <h3>¿Por qué usar estas matrices?</h3>
+            <p>Estas herramientas te ayudarán a visualizar procesos, gestionar el tiempo, planificar tu modelo de negocio y priorizar tareas de manera efectiva. Cada matriz tiene un propósito específico y complementa a las demás.</p>
+        </div>
+
+        <!-- Diagrama de Flujo -->
+        <section id="flujo" class="section fade-in">
+            <div class="matrix-card">
+                <div class="matrix-header">
+                    <div class="matrix-icon">🔄</div>
+                    <div class="matrix-info">
+                        <h3>Diagrama de Flujo</h3>
+                        <p>Representa visualmente la secuencia de pasos en un proceso</p>
+                    </div>
+                </div>
+                <div class="matrix-image-container protected no-interaction">
+                    <div class="matrix-image-title">Diagrama de Flujo</div>
+                    <div class="matrix-status ready">✅</div>  
+                     <img src="Imagenes/flujo.png" alt="Diagrama de Flujo" class="matrix-image protected"> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagrama de Gantt -->
+        <section id="gantt" class="section fade-in">
+            <div class="matrix-card">
+                <div class="matrix-header">
+                    <div class="matrix-icon">📅</div>
+                    <div class="matrix-info">
+                        <h3>Diagrama de Gantt</h3>
+                        
+                        <p>Visualiza el cronograma y seguimiento de actividades del proyecto</p>
+                    </div>
+                </div>
+                <div class="matrix-image-container protected no-interaction">
+                    <div class="matrix-image-title">Diagrama de Gantt</div>
+                    <img src="Imagenes/grantt.jpeg" alt="Diagrama de Flujo" class="matrix-image protected"> 
+                    <div class="matrix-status ready"></div>
+                    
+     
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+        </section>
+
+        <!-- Lean Canvas -->
+        <section id="lean" class="section fade-in">
+            <div class="matrix-card">
+                <div class="matrix-header">
+                    <div class="matrix-icon"></div>
+                    <div class="matrix-info">
+                        <h3>Lean Canvas</h3>
+                        <p>Modelo de negocio simplificado en una página para startups y nuevas ideas</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-image-container protected no-interaction">
+                    <div class="matrix-status ready"></div>
+                    <div class="matrix-image-title">Lean Canvas</div>
+                    <img src="Imagenes/lean.jpeg" alt="Diagrama de Flujo" class="matrix-image protected"> 
+                   
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Matriz de Eisenhower -->
+        <section id="eisenhower" class="section fade-in">
+            <div class="matrix-card">
+                <div class="matrix-header">
+                    <div class="matrix-icon"></div>
+                    <div class="matrix-info">
+                        <h3>Matriz Urgente e Importante</h3>
+                        <p>Prioriza tareas según su urgencia e importancia (Matriz de Eisenhower)</p>
+                    </div>
+                </div>
+                
+             
+                <div class="matrix-image-container protected no-interaction">
+                    <div class="matrix-status ready"></div>
+                    <div class="matrix-image-title">Matriz de Eisenhower</div>
+                    <img src="Imagenes/urgente.png" alt="Diagrama de Flujo" class="matrix-image protected"> 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Información adicional -->
+        <div class="info-box fade-in">
+            <h3>¡Potencia tu gestión!</h3>
+            <p>Estas matrices son herramientas complementarias. Úsalas en conjunto para obtener una visión completa de tus procesos, proyectos y prioridades.</p>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-content">
+            <h3>Matrices de Gestión Empresarial</h3>
+            <p>Herramientas profesionales para la optimización de procesos y gestión efectiva de proyectos.</p>
+            <div style="border-top: 1px solid #34495e; padding-top: 2rem; margin-top: 2rem;">
+                <p>&copy; 2025 Librería El Aprendiz - Matrices de Gestión. Desarrollado para la excelencia operativa.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Prevenir clic derecho en toda la página
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Prevenir arrastrar imágenes
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Prevenir selección de texto en elementos protegidos
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.closest('.protected')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Prevenir teclas de función para guardar/imprimir
+        document.addEventListener('keydown', function(e) {
+            // Prevenir Ctrl+S, Ctrl+A, F12, etc.
+            if (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 65)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.keyCode === 123) { // F12
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Animaciones de scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scrolling para navegación
+        function initSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Destacar sección activa en el menú
+        function initActiveMenuHighlight() {
+            const sections = document.querySelectorAll('section[id]');
+            const menuLinks = document.querySelectorAll('nav a[href^="#"]');
+            
+            function highlightActiveSection() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop <= 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightActiveSection);
+        }
+
+        // Efectos hover para tarjetas
+        function initCardEffects() {
+            const cards = document.querySelectorAll('.matrix-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            initSmoothScrolling();
+            initActiveMenuHighlight();
+            initCardEffects();
+            
+            // Event listeners
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Inicializar animaciones
+            animateOnScroll();
+        });
+
+        // Agregar estilo para enlaces activos
+        const style = document.createElement('style');
+        style.textContent = `
+            nav a.active {
+                background-color: rgba(231, 76, 60, 0.2);
+                color: #fff !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        console.log('🎯 Matrices de Gestión - Modo Solo Visualización');
+        console.log('📊 Imágenes protegidas contra edición');
+    </script>
+</body>
+</html>
